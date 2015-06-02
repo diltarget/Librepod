@@ -6,6 +6,15 @@ http://www.gnu.org/licenses/gpl.txt
 
 *See wiki for advanced usage
 
+Please do not touch, unless you know what you are doing:
+driver.js
+event.js
+driver.js
+config.js
+script.js
+
+Folders drivers, events, scripts are external to the main code. See the wiki for how to edit the contents of these folders.
+
 boot the server?
 node server.js
 
@@ -13,3 +22,11 @@ http Parse?
 
 *calls live data
 localhost:8000/?object=driver&call=call&param=param
+
+Example of use of datastore
+
+localhost:8000/?object=datastore&call=set&store=test&tag=github&val=welcome
+
+localhost:8000/?object=datastore&call=get&store=test&tag=github
+
+*If run in order the last should return welcome
