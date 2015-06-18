@@ -1,0 +1,11 @@
+<temp interval="5000" creator="000" sweatshirt="001" kid="002" beats="003">
+<datastore>
+<set store="temp" tag="{header}" val="{temp}"/>
+</datastore>
+<log>
+<set tag="temp" device="{header}" temp="{temp}"/>
+</log>
+<networkCast>
+<send id="tempnet" device="{header}" temp="{temp}"/>
+</networkCast>
+</temp>

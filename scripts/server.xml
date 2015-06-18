@@ -1,0 +1,8 @@
+<networkCastServer port="666">
+<datastore>
+<set store="temp" tag="{header}" val="{temp}"/>
+</datastore>
+<log>
+<set tag="temp" device="{header}" temp="{temp}"/>
+</log>
+</networkCast>
