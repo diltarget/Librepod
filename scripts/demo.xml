@@ -1,12 +1,8 @@
-<timer interval="10000">
-<math>
-<add a="5" b="7"/>
-<add a="667" b="44"/>
-</math>
+<timer interval="1000">
 <datastore>
-<set store="time" tag="time" val="{time}"/>
+<get store="number" tag="number"/>
 </datastore>
 <routine>
-<call routine="go" p="{time}"/>
+<call routine="addone" object="datastore" call="get" store="number" tag="number"/>
 </routine>
 </timer>

@@ -1,0 +1,6 @@
+<routine>
+<routine>
+<compare exp1="{val}" exp2="10" greater="number"/>
+<call routine="store" object="math" call="add" a="{val}" b="1"/>
+</routine>
+</routine>
