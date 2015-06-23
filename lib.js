@@ -13,7 +13,7 @@ var parser = new xml2js.Parser();
 var config = require('./config.js');
 
 var data={};
-var dir=__dirname+'/drivers'; 
+var dir=__dirname+'/libs'; 
 
 exports.load = function(callback){
 
@@ -38,7 +38,7 @@ exports.load = function(callback){
 		else if(file.indexOf(".js") - file.length == -3)
 		{
         	
-  				data[file.substring(0,file.length-3)]=require('./drivers/'+file);
+  				data[file.substring(0,file.length-3)]=require('./libs/'+file);
   				console.log(file.substring(0,file.length-3));
 
 		
@@ -56,7 +56,7 @@ config.load(callback);
 
 }
 
-exports.param = function(object,func, param, callback){
+exports.call = function(object,func, param, callback){
 
 	if(data[object]===undefined) return false;
 	if(data[object][func]===undefined) return false;	

@@ -1,7 +1,4 @@
 var fs = require('fs');
-//var schedule = require('node-schedule');
-var driver = require('./driver.js');
-//var schedule = require('./schedule.js');
 
 var commands;
 var events = {};

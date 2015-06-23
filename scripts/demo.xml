@@ -1,8 +1,0 @@
-<timer interval="1000">
-<datastore>
-<get store="number" tag="number"/>
-</datastore>
-<routine>
-<call routine="addone" object="datastore" call="get" store="number" tag="number"/>
-</routine>
-</timer>

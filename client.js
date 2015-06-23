@@ -9,13 +9,13 @@ var fs = require('fs');
 var xml2js = require('xml2js');
 var exec = require('child_process').exec;
 //var schedule = require('node-schedule');
-var driver = require('./driver.js');
+var lib = require('./lib.js');
 //var schedule = require('./schedule.js');
 var scripts = require('./script.js');
 
+lib.load(function(){
 scripts.load(function(){});
-
-driver.load(function(){});
+});
 
 // Configure our HTTP server to respond with Hello World to all requests.
 var server = http.createServer(function (request, response) {
@@ -28,11 +28,11 @@ var server = http.createServer(function (request, response) {
 
 		if(queryData.call == "new")
 		{
-			driver.new(queryData[key],function(out){response.end(out)});
+			lib.new(queryData[key],function(out){response.end(out)});
 		}
 		else if(queryData.call == undefined)
 		{
-			driver.param(queryData.object, "call", o, function(out){response.end(out)});
+			lib.call(queryData.object, "call", o, function(out){response.end(out)});
 		}
 		else
 		{
@@ -46,7 +46,7 @@ var server = http.createServer(function (request, response) {
 			});
  
 	
-			driver.param(queryData.object, queryData.call, o, function(out){response.end(out);console.log("Client: "+out);});
+			lib.call(queryData.object, queryData.call, o, function(out){response.end(out);console.log("Client: "+out);});
 		}
 		
 

@@ -1,5 +1,5 @@
 var events = require('./event.js');
-var drivers = require('./driver.js');
+var libs = require('./lib.js');
 var xml2js = require('xml2js');
 var fs = require('fs');
 
@@ -9,7 +9,7 @@ var parser = new xml2js.Parser();
 
 exports.load = function(callback){
 
-	drivers.load(function(){
+	libs.load(function(){
 	events.load(function(){
 	fs.readdir(dir,function(err,files){
     		if (err) throw err;
@@ -21,12 +21,18 @@ exports.load = function(callback){
 		fs.readFile(dir+'/'+file,'utf-8',function(err,html){
 		
 		parser.parseString(html, function (err, result) {
-			console.log(result);
+			//console.log(result);
 			Object.keys(result).forEach(function(s) {
 			result = result[s]
-			create_event(s,result['$'],result);
+			if(events.exist(s) != true && s != "main") return;
+    	    events.call(s,result['$'], function(r){
+    	        exports.call(file.substring(0,file.length-4),r,function(out){
+    	            console.log("@"+s+": "+out);
+    	        });
 			});
 			
+		});
+		
 		});
 
 		});
@@ -55,7 +61,7 @@ exports.call = function(f,par,callback){
 		}
 
 		parser.parseString(html, function (err, result) {
-			
+			//console.log(result);
 			Object.keys(result).forEach(function(s) {
 				result = result[s]
 				run(par,result,callback);
@@ -64,39 +70,6 @@ exports.call = function(f,par,callback){
 			
 	});
 	
-}
-
-function create_event(event,par, program){
-
-	if(events.exist(event) != true && event != "main") return;
-	events.call(event,par, function(r){
-	if(typeof r === "undefined") r={};
-	Object.keys(program).forEach(function(key) {
-		if(key==="$"){ return;}
-  		Object.keys(program[key]).forEach(function(val){
-			if(typeof program[key][val] != "object") return;
-			Object.keys(program[key][val]).forEach(function(m){
-				Object.keys(program[key][val][m]).forEach(function(l){
-					var p = program[key][val][m][l]['$'];
-					Object.keys(p).forEach(function(g){
-							
-						if(typeof p[g] != "string") return;
-						if(p[g].substring(0,1) != "{") return;
-						if(p[g].substring(p[g].length-1, p[g].length) != "}") return;
-						if(typeof r[p[g].substring(1, p[g].length-1)] === "undefined") return;
-
-						p[g]=r[p[g].substring(1, p[g].length-1)];
-					});
-						
-					drivers.param(key, m,p, function(out){
-						console.log("@"+event+": "+out);
-					});
-				});
-			});
-		});
-	});
-
-	});
 }
 
 function run(r,program,callback){
@@ -113,15 +86,25 @@ function run(r,program,callback){
 					Object.keys(p).forEach(function(g){
 							
 						if(typeof p[g] != "string") return;
-						if(p[g].substring(0,1) != "{") return;
-						if(p[g].substring(p[g].length-1, p[g].length) != "}") return;
-						if(typeof r[p[g].substring(1, p[g].length-1)] === "undefined") return;
-
-						p[g]=r[p[g].substring(1, p[g].length-1)];
-					});
-					
 						
-					drivers.param(key, m,p, function(out){callback(out)});
+						var list = p[g].split("{");
+						
+						Object.keys(list).forEach(function(k){
+						   
+						    if(list[k].indexOf("}") > 0){
+						        list[k] = list[k].split("}")[0];
+						        
+						        if(r[list[k]] != undefined){
+						            p[g] = p[g].replace("{"+list[k]+"}", r[list[k]]);
+
+						        }
+						        
+						    }
+					    });
+					    
+                    });
+					
+					libs.call(key, m,p, function(out){callback(out)});
 				});
 			});
 		});
