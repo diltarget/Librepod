@@ -3,8 +3,6 @@
 
 var fs = require('fs');
 
-var parser = new xml2js.Parser();
-
 var data={};
 var dir=__dirname+'/config'; 
 

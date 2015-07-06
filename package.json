@@ -1,6 +1,6 @@
 {
   "name": "librepod",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An interface made to manage devices for a montioring/automation senario with a web api and scripting interface",
   "main": "lib.js",
   "scripts": {
@@ -12,6 +12,11 @@
   "keywords": [
     "librepod"
   ],
+  "dependencies": {
+    "xml2js" : "latest",
+    "dblite" : "latest",
+    "fs" : "latest"
+  },
   "repository" :
   { "type": "git"
   , "url" : "https://github.com/diltarget/Librepod"
