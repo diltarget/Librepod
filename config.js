@@ -1,14 +1,8 @@
 //Dylan Thomas 2015
 //GNUPLV2
 
-var dblite = require('dblite');
-var db = dblite('localdata');
-var http = require('http');
-var url = require('url');
 var fs = require('fs');
-var xml2js = require('xml2js');
-var exec = require('child_process').exec;
-var schedule = require('node-schedule');
+
 var parser = new xml2js.Parser();
 
 var data={};

@@ -1,0 +1,21 @@
+{
+  "name": "librepod",
+  "version": "1.0.0",
+  "description": "An interface made to manage devices for a montioring/automation senario with a web api and scripting interface",
+  "main": "lib.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "librepod": "bin.js"
+  },
+  "keywords": [
+    "librepod"
+  ],
+  "repository" :
+  { "type": "git"
+  , "url" : "https://github.com/diltarget/Librepod"
+  },
+  "author": "Dylan Thomas",
+  "license": "GPL-3.0"
+}

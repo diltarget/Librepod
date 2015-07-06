@@ -2,31 +2,22 @@ Dylan Thomas 2015
 This software is available under the GNU General Public License.
 http://www.gnu.org/licenses/gpl.txt
 
-*Requires Node.js and Sqlite3
+This is a node.js package. Note this use to come with the files nessary to run but this is just the barebones packages.
 
-*See wiki for advanced usage
+install globally
 
-Please do not touch, unless you know what you are doing:
-driver.js
-event.js
-driver.js
-config.js
-script.js
+npm install librepod -g
 
-Folders drivers, events, scripts are external to the main code. See the wiki for how to edit the contents of these folders.
+then create a directory with folders
+libs
+config
+events
+scripts
 
-boot the server?
-node server.js
+or download LibrepodPlus
+https://github.com/diltarget/LibrepodPlus
 
-http Parse?
+cd LibrepodPlus
+librepod
 
-*calls live data
-localhost:8000/?object=driver&call=call&param=param
-
-Example of use of datastore
-
-localhost:8000/?object=datastore&call=set&store=test&tag=github&val=welcome
-
-localhost:8000/?object=datastore&call=get&store=test&tag=github
-
-*If run in order the last should return welcome
+Enjoy

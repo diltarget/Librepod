@@ -1,21 +1,15 @@
 //Dylan Thomas 2015
 //GNUPLV2
 
-var dblite = require('dblite');
-var db = dblite('localdata');
-var http = require('http');
-var url = require('url');
 var fs = require('fs');
 var xml2js = require('xml2js');
 var exec = require('child_process').exec;
-var schedule = require('node-schedule');
-var parser = new xml2js.Parser();
-var config = require('./config.js');
+var config = require('./config');
 
 var data={};
 var dir=__dirname+'/libs'; 
 
-exports.load = function(callback){
+exports.build = function(callback){
 
 	fs.readdir(dir,function(err,files){
     		if (err) throw err;
@@ -49,8 +43,7 @@ exports.load = function(callback){
 		}
         });
 
-console.log("hello");
-config.load(callback);
+    config.build(callback);
 
     });
 
@@ -120,29 +113,5 @@ exports.call = function(object,func, param, callback){
 		});
 
 	}
-
-}
-
-exports.new = function(object, callback){
-
-	if(data[object]===undefined) return false;
-	if(data[object]["new"]===undefined) return false;
-	var command="";
-
-	command=+data[object]["new"][0];
-	
-	exec(command, function (error, stdout, stderr) {
-		
-		callback(stdout);
-		
-	});
-
-
-}
-
-function build(command, callback)
-{
-
-
 
 }

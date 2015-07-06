@@ -7,7 +7,7 @@ var dir=__dirname+'/scripts';
 
 var parser = new xml2js.Parser();
 
-exports.load = function(callback){
+exports.build = function(callback){
 
 	libs.load(function(){
 	events.load(function(){
