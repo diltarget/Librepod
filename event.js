@@ -3,7 +3,7 @@ var fs = require('fs');
 var commands;
 var events = {};
 
-var dir=__dirname+'/events'; 
+var dir=process.cwd()+'/events'; 
 
 //var parser = new xml2js.Parser();
 

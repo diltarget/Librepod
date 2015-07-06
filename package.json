@@ -1,6 +1,6 @@
 {
   "name": "librepod",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "An interface made to manage devices for a montioring/automation senario with a web api and scripting interface",
   "main": "lib.js",
   "scripts": {

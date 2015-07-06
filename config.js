@@ -4,7 +4,7 @@
 var fs = require('fs');
 
 var data={};
-var dir=__dirname+'/config'; 
+var dir=process.cwd()+'/config'; 
 
 exports.load = function(callback){
 

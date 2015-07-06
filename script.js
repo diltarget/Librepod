@@ -3,7 +3,7 @@ var libs = require('./lib.js');
 var xml2js = require('xml2js');
 var fs = require('fs');
 
-var dir=__dirname+'/scripts'; 
+var dir=process.cwd()+'/scripts'; 
 
 var parser = new xml2js.Parser();
 

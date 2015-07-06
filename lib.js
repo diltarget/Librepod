@@ -7,7 +7,7 @@ var exec = require('child_process').exec;
 var config = require('./config');
 
 var data={};
-var dir=__dirname+'/libs'; 
+var dir=process.cwd()+'/libs';
 
 exports.build = function(callback){
 
@@ -32,7 +32,7 @@ exports.build = function(callback){
 		else if(file.indexOf(".js") - file.length == -3)
 		{
         	
-  				data[file.substring(0,file.length-3)]=require('./libs/'+file);
+  				data[file.substring(0,file.length-3)]=require(dir+'/'+file);
   				console.log(file.substring(0,file.length-3));
 
 		
