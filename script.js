@@ -9,8 +9,8 @@ var parser = new xml2js.Parser();
 
 exports.build = function(callback){
 
-	libs.load(function(){
-	events.load(function(){
+	libs.build(function(){
+	events.build(function(){
 	fs.readdir(dir,function(err,files){
     		if (err) throw err;
     	var c=0;

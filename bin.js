@@ -1,6 +1,8 @@
 #! /usr/bin/env node
 var lib = require("./lib")
 var script = require("./script")
+var http = require("http")
+var url = require("url")
 
 var parm = process.argv;
 var port = 8000;
@@ -30,7 +32,7 @@ lib.build(function(){
 	    	}
 	    	else if(queryData.call == undefined)
 	    	{
-	    		lib.call(queryData.object, "call", o, function(out){response.end(out)});
+	    		lib.call(queryData.object, "call", o, function(out){response.end(out.toString())});
 	    	}
 	    	else
 	    	{
@@ -44,7 +46,7 @@ lib.build(function(){
 	    		});
  
 	    
-	    		lib.call(queryData.object, queryData.call, o, function(out){response.end(out);console.log("Client: "+out);});
+	    		lib.call(queryData.object, queryData.call, o, function(out){response.end(out.toString());console.log("Client: "+out.toString());});
 	    	}
 		
 

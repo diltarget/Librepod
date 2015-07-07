@@ -7,7 +7,7 @@ var dir=process.cwd()+'/events';
 
 //var parser = new xml2js.Parser();
 
-exports.load = function(callback){
+exports.build = function(callback){
 fs.readdir(dir,function(err,files){
     		if (err) throw err;
     	var c=0;
@@ -15,7 +15,7 @@ fs.readdir(dir,function(err,files){
 		if(file.indexOf(".js") - file.length == -3)
 		{
         	
-  			events[file.substring(0,file.length-3)]=require('./events/'+file);
+  			events[file.substring(0,file.length-3)]=require(dir+'/'+file);
   			console.log(file.substring(0,file.length-3));
 
 		

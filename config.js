@@ -6,7 +6,7 @@ var fs = require('fs');
 var data={};
 var dir=process.cwd()+'/config'; 
 
-exports.load = function(callback){
+exports.build = function(callback){
 
 	fs.readdir(dir,function(err,files){
     		if (err) throw err;
