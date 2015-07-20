@@ -9,6 +9,8 @@ var config = require('./config');
 var data={};
 var dir=process.cwd()+'/libs';
 
+var parser = new xml2js.Parser();
+
 exports.build = function(callback){
 
 	fs.readdir(dir,function(err,files){
