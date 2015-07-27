@@ -1,4 +1,4 @@
-var events = require('./event.js');
+//var events = require('./event.js');
 var libs = require('./lib.js');
 var xml2js = require('xml2js');
 var fs = require('fs');
@@ -10,7 +10,7 @@ var parser = new xml2js.Parser();
 exports.build = function(callback){
 
 	libs.build(function(){
-	events.build(function(){
+	//events.build(function(){
 	fs.readdir(dir,function(err,files){
     		if (err) throw err;
     	var c=0;
@@ -21,15 +21,22 @@ exports.build = function(callback){
 		fs.readFile(dir+'/'+file,'utf-8',function(err,html){
 		
 		parser.parseString(html, function (err, result) {
-			//console.log(result);
+			if(err) return;
 			Object.keys(result).forEach(function(s) {
 			result = result[s]
-			if(events.exist(s) != true && s != "main") return;
-    	    events.call(s,result['$'], function(r){
-    	        exports.call(file.substring(0,file.length-4),r,function(out){
-    	            console.log("@"+s+": "+out);
-    	        });
-			});
+			if(libs.exist(s,'event') == false && s != "main") return;
+			
+			if(s === "main"){
+				exports.call(file.substring(0,file.length-4),{},function(out){
+					console.log("@"+s+": "+out);
+				});
+			}else{
+				libs.call(s,'event',result['$'], function(r){
+					exports.call(file.substring(0,file.length-4),r,function(out){
+						console.log("@"+s+": "+out);
+					});
+				});
+			}
 			
 		});
 		
@@ -48,7 +55,7 @@ exports.build = function(callback){
 	});
 	});
 
-    });
+    //});
 
 }
 
@@ -82,27 +89,28 @@ function run(r,program,callback){
 			Object.keys(program[key][val]).forEach(function(m){
 				Object.keys(program[key][val][m]).forEach(function(l){
 					var p = program[key][val][m][l]['$'];
-					
-					Object.keys(p).forEach(function(g){
+					if(typeof p != "undefined"){
+						Object.keys(p).forEach(function(g){
 							
-						if(typeof p[g] != "string") return;
+							if(typeof p[g] != "string") return;
 						
-						var list = p[g].split("{");
+							var list = p[g].split("{");
 						
-						Object.keys(list).forEach(function(k){
+							Object.keys(list).forEach(function(k){
 						   
-						    if(list[k].indexOf("}") > 0){
-						        list[k] = list[k].split("}")[0];
+								if(list[k].indexOf("}") > 0){
+									list[k] = list[k].split("}")[0];
 						        
-						        if(r[list[k]] != undefined){
-						            p[g] = p[g].replace("{"+list[k]+"}", r[list[k]]);
+									if(r[list[k]] != undefined){
+										p[g] = p[g].replace("{"+list[k]+"}", r[list[k]]);
 
-						        }
+									}
 						        
-						    }
-					    });
+								}
+							});
 					    
-                    });
+						});
+					}
 					
 					libs.call(key, m,p, function(out){callback(out)});
 				});

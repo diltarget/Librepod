@@ -4,20 +4,27 @@ http://www.gnu.org/licenses/gpl.txt
 
 This is a node.js package. Note this use to come with the files nessary to run but this is just the barebones packages.
 
-install globally
+Install script
 
 npm install librepod -g
+npm install librepod
 
-then create a directory with folders
-libs
-config
-events
-scripts
-
-or download LibrepodPlus
-https://github.com/diltarget/LibrepodPlus
-
-cd LibrepodPlus
+mkdir newProject
+cd newProject
+librepod init
 librepod
 
-Enjoy
+
+or with LibrepodPlus
+https://github.com/diltarget/LibrepodPlus
+
+npm install librepod -g
+npm install librepod
+mkdir LibrepodLibs
+cp LibrepodPlus LibrepodLibs
+mkdir newProject
+cd newProject
+librepod init LibrepodPlus
+librepod
+
+open your web browser to localhost:8000/?object=math&call=add&a=60&b=12

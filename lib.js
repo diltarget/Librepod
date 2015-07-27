@@ -15,12 +15,10 @@ exports.build = function(callback){
 
 	fs.readdir(dir,function(err,files){
     		if (err) throw err;
-    	var c=0;
     	files.forEach(function(file){
 		if(file.indexOf(".xml") - file.length == -4)
 		{
-        	c++;
-		//console.log(file);
+        	
         	fs.readFile(dir+'/'+file,'utf-8',function(err,html){
             	if (err) throw err;
 		parser.parseString(html, function (err, result) {
@@ -39,11 +37,41 @@ exports.build = function(callback){
 
 		
 		}
-		else
+		else if(file === "GLOBAL_LIBS")
 		{
-			return;
+        	
+  			fs.readFile(dir+'/GLOBAL_LIBS','utf-8',function(err,html){
+				console.log(html)
+				if (err) return;
+				var list = html.split("\n")
+				Object.keys(list).forEach(function(k){
+					fs.readdir(process.env['HOME']+'/LibrepodLibs/'+list[k],function(err,filelist){
+						filelist.forEach(function(f){
+							if(f.indexOf(".xml") - f.length == -4)
+							{
+								fs.readFile(process.env['HOME']+'/LibrepodLibs/'+list[k]+'/'+f,'utf-8',function(err,html){
+									if (err) return;
+									parser.parseString(html, function (err, result) {
+										Object.keys(result).forEach(function(key) {
+											data[key]=result[key];
+											console.log(key);
+										});
+									});
+								});
+							}
+							else if(f.indexOf(".js") - f.length == -3)
+							{   	
+								data[f.substring(0,f.length-3)]=require(process.env['HOME']+'/LibrepodLibs/'+list[k]+'/'+f);
+								console.log(f.substring(0,f.length-3));	
+							}
+						});
+					});
+				});
+			});
 		}
-        });
+		});
+
+	console.log(data);
 
     config.build(callback);
 
@@ -116,4 +144,11 @@ exports.call = function(object,func, param, callback){
 
 	}
 
+}
+
+exports.exist = function(o,f){
+	if(data[o] == undefined) return false;
+	if(data[o][f] == undefined) return false;
+	
+	return true;
 }
