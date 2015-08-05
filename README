@@ -6,8 +6,10 @@ This is a node.js package. Note this use to come with the files nessary to run b
 
 Install script
 
-npm install librepod -g
+cd
 npm install librepod
+cd node_modules/librepod
+sudo npm link
 
 mkdir newProject
 cd newProject
@@ -18,10 +20,16 @@ librepod
 or with LibrepodPlus
 https://github.com/diltarget/LibrepodPlus
 
-npm install librepod -g
+cd
 npm install librepod
+cd node_modules/librepod
+sudo npm link
+
 mkdir LibrepodLibs
-cp LibrepodPlus LibrepodLibs
+cd LibrepodLibs
+git clone https://github.com/diltarget/LibrepodPlus.git
+
+cd
 mkdir newProject
 cd newProject
 librepod init LibrepodPlus
